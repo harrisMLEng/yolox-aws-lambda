@@ -13,7 +13,7 @@
     },
     "mounts": [
       "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-      "source=${localWorkspaceFolder}/supabase/functions,target=/workspaces/tracking/supabase/functions,type=bind"
+    //   "source=${localWorkspaceFolder}/supabase/functions,target=/workspaces/tracking/supabase/functions,type=bind"
     ],
     "postCreateCommand": "bash ./.devcontainer/start.sh",
     "postStartCommand": "bash ./.devcontainer/start.sh",

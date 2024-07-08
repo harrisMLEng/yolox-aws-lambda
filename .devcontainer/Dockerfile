@@ -18,17 +18,15 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRO
     awscli \
     xdg-utils \
     # BEGIN postgresql
-    postgresql-15 \ 
-    postgresql-contrib-15 \ 
+    # postgresql-15 \ 
+    # postgresql-contrib-15 \ 
     # END postgresql
     && rm -rf /var/lib/apt/lists/*
 
 # Install poetry and plugins
 ARG POETRY_VERSION
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install poetry==${POETRY_VERSION} && \
-    poetry self add poetry-multiproject-plugin && \
-    poetry self add poetry-polylith-plugin
+    pip3 install poetry==${POETRY_VERSION}
 
 # Set up AWS SAM CLI installation with automatic architecture detection
 RUN --mount=type=cache,target=/tmp/download_cache \
