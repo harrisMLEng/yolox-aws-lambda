@@ -1,82 +1,84 @@
 {
-    "name": "Python 3.10",
-    "build": {
-      "dockerfile": "Dockerfile",
-      "context": "..",
-      "args": {
-        "VARIANT": "3.10-bookworm",
-        "POETRY_VERSION": "1.8.3"
-      }
-    },
-    "features": {
-      // "ghcr.io/devcontainers/features/github-cli:1": {}
-    },
-    "mounts": [
-      "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-    //   "source=${localWorkspaceFolder}/supabase/functions,target=/workspaces/tracking/supabase/functions,type=bind"
-    ],
-    "postCreateCommand": "bash ./.devcontainer/start.sh",
-    "postStartCommand": "bash ./.devcontainer/start.sh",
-    "appPort": [
-      // "54321:54321", // Supabase API
-      // "54322:54322" // PostgreSQL
-    ],
-    "remoteEnv": {
-      "AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
-      "AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}",
-      "AWS_REGION": "${localEnv:AWS_REGION}",
-      "SAM_CLI_TELEMETRY": "0",
-      "DOCKER_BUILDKIT": "1"
-    },
-    "remoteUser": "root",
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "python.defaultInterpreterPath": "./.venv/bin/python",
-          "python.pythonPath": "./.venv/bin/python",
-          "python.testing.pytestPath": "./.venv/bin/pytest",
-          "python.languageServer": "Pylance",
-          "python.analysis.diagnosticMode": "workspace",
-          "python.analysis.typeCheckingMode": "basic",
-          "editor.codeActionsOnSave": {
-            "source.fixAll": "always",
-            "source.organizeImports": "always",
-            "source.sortImports": "always",
-            "source.fixAll.unusedImports": "always"
-          },
-          "editor.formatOnSave": true,
-          "editor.formatOnType": true,
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.tabSize": 2,
-          "editor.rulers": [120],
-          "[python]": {
-            "editor.tabSize": 4
-          },
-          "extensions": {
-            "verifySignature": false
-          }
+  "name": "Python 3.10",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "VARIANT": "3.10-bookworm",
+      "POETRY_VERSION": "1.8.3"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind",
+    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
+    // "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/root/.aws,type=bind"
+  ],
+  "postCreateCommand": "bash ./.devcontainer/start.sh",
+  "postStartCommand": "bash ./.devcontainer/start.sh",
+  "appPort": [
+    // "54321:54321", // Supabase API
+    // "54322:54322" // PostgreSQL
+  ],
+  "remoteEnv": {
+    "AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
+    "AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}",
+    "AWS_REGION": "${localEnv:AWS_REGION}",
+    "SAM_CLI_TELEMETRY": "0",
+    "DOCKER_BUILDKIT": "1"
+  },
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "./.venv/bin/python",
+        "python.pythonPath": "./.venv/bin/python",
+        "python.testing.pytestPath": "./.venv/bin/pytest",
+        "python.languageServer": "Pylance",
+        "python.analysis.diagnosticMode": "workspace",
+        "python.analysis.typeCheckingMode": "basic",
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "always",
+          "source.organizeImports": "always",
+          "source.sortImports": "always",
+          "source.fixAll.unusedImports": "always"
         },
-        "extensions": [
-          "ms-python.python",
-          "ms-python.vscode-pylance",
-          "pylint.vscode-pylint",
-          "esbenp.prettier-vscode",
-          "editorconfig.editorconfig",
-          "visualstudioexptteam.vscodeintellicode",
-          "eirikb.vscode-git-log",
-          "davidanson.vscode-markdownlint",
-          "njpwerner.autodocstring",
-          "lextudio.restructuredtext",
-          "ms-vscode.test-adapter-converter",
-          "ms-azuretools.vscode-docker",
-          "Boto3typed.boto3-ide",
-          "github.vscode-pull-request-github",
-          "ms-toolsai.jupyter",
-          "boto3typed.boto3-ide",
-          "visualstudioexptteam.vscodeintellicode",
-          "charliermarsh.ruff"
-        ]
-      }
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.rulers": [120],
+        "[python]": {
+          "editor.tabSize": 4
+        },
+        "extensions": {
+          "verifySignature": false
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "pylint.vscode-pylint",
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "visualstudioexptteam.vscodeintellicode",
+        "eirikb.vscode-git-log",
+        "davidanson.vscode-markdownlint",
+        "njpwerner.autodocstring",
+        "lextudio.restructuredtext",
+        "ms-vscode.test-adapter-converter",
+        "ms-azuretools.vscode-docker",
+        "Boto3typed.boto3-ide",
+        "github.vscode-pull-request-github",
+        "ms-toolsai.jupyter",
+        "boto3typed.boto3-ide",
+        "visualstudioexptteam.vscodeintellicode",
+        "charliermarsh.ruff"
+      ]
     }
   }
-  
+}
