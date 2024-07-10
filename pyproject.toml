@@ -7,7 +7,7 @@ authors = ["harrisDLEng <harris@goclever.io>"]
 
 
 packages = [
-    { include = "yolox-aws-lambda" }
+    { include = "app" }
 ]
 
 [tool.poetry.dependencies]
