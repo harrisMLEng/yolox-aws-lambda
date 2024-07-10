@@ -1,15 +1,17 @@
-from fastapi import APIRouter, UploadFile, File
+import io
+
+from fastapi import APIRouter, File, UploadFile
+from PIL import Image
+
 from app.models.yolox_model import load_model
 from app.schemas.prediction import Prediction
-from PIL import Image
-import io
 
 router = APIRouter()
 
 # Load the YOLOX model
 model = load_model()
 
-@router.post("/", response_model=list[Prediction])
+@router.post("/predict", response_model=list[Prediction])
 async def predict(file: UploadFile = File(...)):
     # Read image file
     image_bytes = await file.read()
