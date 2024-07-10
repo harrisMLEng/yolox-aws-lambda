@@ -1,9 +1,14 @@
 [tool.poetry]
-name = "yolox"
+name = "yolox-aws-lambda"
 version = "0.1.0"
 description = ""
 readme = "README.md"
 authors = ["harrisDLEng <harris@goclever.io>"]
+
+
+packages = [
+    { include = "yolox-aws-lambda" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
