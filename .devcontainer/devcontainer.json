@@ -18,7 +18,7 @@
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
     // "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/root/.aws,type=bind"
   ],
-  "postCreateCommand": "bash ./.devcontainer/start.sh",
+  // "postCreateCommand": "bash ./.devcontainer/start.sh",
   "postStartCommand": "bash ./.devcontainer/start.sh",
   "appPort": [
     // "54321:54321", // Supabase API
