@@ -14,6 +14,7 @@ packages = [
 python = "^3.10"
 torch = "^2.0.1"
 torchvision = "^0.15.2"
+torchaudio = "^2.0.2"
 notebook = "^7.0.4"
 fastapi = "^0.110.0"
 uvicorn = {extras = ["standard"], version = "^0.29.0"}
@@ -24,5 +25,5 @@ awslambdaric = "^2.0.11"
 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "packaging ~= ^24.1", "torch ~= ^2.0.1", "torchvision ~= ^0.15.2", "torchaudio ~= ^2.0.2"]
 build-backend = "poetry.core.masonry.api"
