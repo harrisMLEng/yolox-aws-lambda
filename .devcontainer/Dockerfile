@@ -16,6 +16,8 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRO
     libeigen3-dev \
     ffmpeg \
     awscli \
+    build-essential \
+    libglib2.0-0 \
     xdg-utils \
     # BEGIN postgresql
     # postgresql-15 \ 
