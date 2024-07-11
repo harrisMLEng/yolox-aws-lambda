@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      "VARIANT": "3.10-bookworm",
+      "VARIANT": "0-ubuntu-22.04",
       "POETRY_VERSION": "1.8.3"
     }
   },
