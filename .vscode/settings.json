@@ -1,3 +1,26 @@
 {
+  //"python.analysis.extraPaths": ["./tracking/utils"],
+  "python.testing.pytestArgs": ["tests"], // ["tests", "-n 4"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.analysis.autoImportCompletions": false,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.extraPaths": ["bases", "components"],
+  "python.languageServer": "Default",
+  "python.analysis.typeCheckingMode": "basic",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnType": true,
+  "prettier.printWidth": 120,
+  "editor.tabSize": 2,
+  "editor.rulers": [120],
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "python.globalModuleInstallation": false,
   "restructuredtext.pythonRecommendation.disabled": true
 }
