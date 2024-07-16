@@ -1,12 +1,11 @@
 # syntax = docker/dockerfile:1.2
 ARG VARIANT
-FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
+FROM mcr.microsoft.com/vscode/devcontainers/anaconda:${VARIANT}
 ENV PIP_CACHE_DIR=/var/cache/buildkit/pip 
 RUN mkdir -p $PIP_CACHE_DIR
 RUN rm -f /etc/apt/apt.conf.d/docker-clean
 RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRONTEND=noninteractive \ 
     && apt-get install -yqq --no-install-recommends \
-    python3-pip python3.10-dev \
     docker.io \
     cmake \
     libjpeg-dev \
@@ -15,7 +14,6 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRO
     libboost-all-dev \
     libgl1-mesa-glx \
     libeigen3-dev \
-    ffmpeg \
     protobuf-compiler \
     libprotobuf-dev \
     awscli \
@@ -25,12 +23,12 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRO
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN ln -sf /usr/bin/python3 /usr/bin/python && \
-    ln -sf /usr/bin/pip3 /usr/bin/pip
+# RUN ln -sf /usr/bin/python3 /usr/bin/python && \
+#     ln -sf /usr/bin/pip3 /usr/bin/pip
 # Install poetry and plugins
-ARG POETRY_VERSION
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install poetry==${POETRY_VERSION}
+# ARG POETRY_VERSION
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     pip3 install poetry==${POETRY_VERSION}
 
 # Set up AWS SAM CLI installation with automatic architecture detection
 RUN --mount=type=cache,target=/tmp/download_cache \
