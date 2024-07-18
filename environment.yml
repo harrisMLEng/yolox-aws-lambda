@@ -1,6 +1,5 @@
 name: yolox-aws-lambda
 channels:
-  - conda-forge
   - defaults
 dependencies:
   - python=3.10.12
