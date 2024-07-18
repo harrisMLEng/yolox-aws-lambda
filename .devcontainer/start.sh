@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
+if ! conda env list | grep -q 'yolox-aws-lambda'; then
+    conda env create --file environment.yml
+fi
 
-# VENV_PATH=$(poetry env info --path)
-# if [[ ! -d $VENV_PATH ]]; then
-#   poetry config virtualenvs.in-project true --local
-# fi
+source activate base
+conda activate yolox-aws-lambda
 
-
-# if [ ! -d "YOLOX" ]; then
-#     git clone --depth=1 https://github.com/Megvii-BaseDetection/YOLOX.git
-# fi
-
-# poetry install
-# poetry shell
