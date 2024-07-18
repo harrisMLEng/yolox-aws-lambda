@@ -1,0 +1,17 @@
+name: yolox-aws-lambda
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.12
+  - pip
+  - pip:
+      - torch==2.0.1
+      - torchvision==0.15.2
+      - uvicorn==0.29.0
+      - opencv-python==4.9.0.80
+      - notebook==7.0.4
+      - mangum==0.17.0
+      - fastapi==0.110.0
+      - botocore==1.34.110
+      - awslambdaric==2.0.11
