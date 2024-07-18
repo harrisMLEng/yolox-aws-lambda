@@ -17,8 +17,8 @@
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
     // "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/root/.aws,type=bind"
   ],
-  "postCreateCommand": "bash ./.devcontainer/start.sh",
-  "postStartCommand": "bash ./.devcontainer/start.sh",
+  "postCreateCommand": "bash ./.devcontainer/start.sh && conda activate yolox-aws-lambda",
+  "postStartCommand": "bash ./.devcontainer/start.sh && conda activate yolox-aws-lambda",
   "appPort": [
     // "54321:54321", // Supabase API
     // "54322:54322" // PostgreSQL
@@ -34,9 +34,9 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "./.venv/bin/python",
-        "python.pythonPath": "./.venv/bin/python",
-        "python.testing.pytestPath": "./.venv/bin/pytest",
+        "python.defaultInterpreterPath": "/opt/conda/envs/yolox-aws-lambda/bin/python",
+        "python.pythonPath": "/opt/conda/envs/yolox-aws-lambda/bin/python",
+        "python.testing.pytestPath": "/opt/conda/envs/yolox-aws-lambda/bin/pytest",
         "python.languageServer": "Pylance",
         "python.analysis.diagnosticMode": "workspace",
         "python.analysis.typeCheckingMode": "basic",
