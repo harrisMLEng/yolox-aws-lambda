@@ -4,21 +4,20 @@
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      "VARIANT": "0-3"
+      "VARIANT": "3.10-bookworm",
+      "POETRY_VERSION": "1.8.3"
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    // "ghcr.io/devcontainers/features/github-cli:1": {}
   },
-
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind",
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
-    // "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/root/.aws,type=bind"
   ],
-  "postCreateCommand": "bash ./.devcontainer/start.sh && conda activate yolox-aws-lambda",
-  "postStartCommand": "bash ./.devcontainer/start.sh && conda activate yolox-aws-lambda",
+  "postCreateCommand": "bash ./.devcontainer/start.sh",
+  "postStartCommand": "bash ./.devcontainer/start.sh",
   "appPort": [
     // "54321:54321", // Supabase API
     // "54322:54322" // PostgreSQL
@@ -34,9 +33,9 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/opt/conda/envs/yolox-aws-lambda/bin/python",
-        "python.pythonPath": "/opt/conda/envs/yolox-aws-lambda/bin/python",
-        "python.testing.pytestPath": "/opt/conda/envs/yolox-aws-lambda/bin/pytest",
+        "python.defaultInterpreterPath": "./.venv/bin/python",
+        "python.pythonPath": "./.venv/bin/python",
+        "python.testing.pytestPath": "./.venv/bin/pytest",
         "python.languageServer": "Pylance",
         "python.analysis.diagnosticMode": "workspace",
         "python.analysis.typeCheckingMode": "basic",
