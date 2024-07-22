@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "ms-python.python", // Official Python extension for VSCode
+    "ms-python.vscode-pylance", // Pylance, a Python Language Server for better IntelliSense and type checking
+    "pylint.vscode-pylint", // Pylint support for Visual Studio Code
+    "visualstudioexptteam.vscodeintellicode", // AI-assisted code completions for Python
+    "eirikb.vscode-git-log", // View git log, search history, view commit details
+    "davidanson.vscode-markdownlint", // Linting for Markdown files, if you maintain documentation in MD
+    "njpwerner.autodocstring", // Automatically generate docstrings for Python functions
+    "lextudio.restructuredtext", // If you're using reStructuredText for documentation
+    "ms-vscode.test-adapter-converter", // Integrate Python tests in VSCode's test runner
+    "ms-azuretools.vscode-docker",
+    "github.vscode-pull-request-github",
+    "ms-toolsai.jupyter",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "Boto3typed.boto3-ide",
+    "charliermarsh.ruff"
+  ]
+}
