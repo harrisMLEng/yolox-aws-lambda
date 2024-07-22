@@ -19,14 +19,10 @@ RUN --mount=type=cache,target=/var/cache/apt apt-get update && export DEBIAN_FRO
     xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Install poetry and plugins
 ARG POETRY_VERSION
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install poetry==${POETRY_VERSION}
-    # poetry self add poetry-multiproject-plugin && \
-    # poetry self add poetry-polylith-plugin
 
-# Set up AWS SAM CLI installation with automatic architecture detection
 RUN --mount=type=cache,target=/tmp/download_cache \
     ARCH=$(uname -m) && \
     if [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "amd64" ]; then \
