@@ -27,6 +27,7 @@ onnx = "1.14.0"
 onnx-simplifier = "0.3.10"
 onnxoptimizer = "0.3.13"
 onnxruntime = "1.13.1"
+loguru = "^0.7.2"
 
 [build-system]
 requires = ["poetry-core", "torch"]
