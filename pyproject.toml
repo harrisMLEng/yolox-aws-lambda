@@ -24,10 +24,12 @@ botocore = "^1.34.110"
 awslambdaric = "^2.0.11"
 torch = "2.0.1"
 onnx = "1.14.0"
+numpy = "^1.26.4"
 onnx-simplifier = "0.3.10"
 onnxoptimizer = "0.3.13"
 onnxruntime = "1.13.1"
 loguru = "^0.7.2"
+protobuff = "4.25.4"
 
 [build-system]
 requires = ["poetry-core", "torch"]
