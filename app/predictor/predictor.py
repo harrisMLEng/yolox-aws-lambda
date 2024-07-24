@@ -1,17 +1,15 @@
 import time
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
-import cv2
 import numpy as np
 import torch
-from exps.yolox_s import Exp
 from loguru import logger
 from torch import Tensor
-
-from app.utils.helpers import draw_annotations
 from yolox.data.data_augment import ValTransform
 from yolox.models.yolox import YOLOX
 from yolox.utils.boxes import postprocess
+
+from app.exps.yolox_s import Exp
 
 
 class Predictor:
@@ -36,7 +34,7 @@ class Predictor:
         self.fp16 = fp16
         self.preproc = ValTransform(legacy=legacy)
 
-    # FIXME 
+    # FIXME
     def __load_exp(self) -> None:
         self.num_classes = self.exp.num_classes
         self.confthre = self.exp.test_conf
@@ -87,19 +85,25 @@ class Predictor:
 def load_exp(exp: Exp) -> YOLOX:
     return exp.get_model().eval()
 
-def load_weights(ckpt_path: str):
-  try:
-    ckpt = torch.load(ckpt_path, map_location=self.device)
-    return ckpt
-  except:
-    raise Exception("model weights not found")
 
-def load_model(model:YOLOX, ckpt : ?):
-  try:
-    model.load_state_dict(ckpt["model"])
-    return ckpt
-  except:
-    raise Exception("model weights not found")
+def load_weights(ckpt_path: str, device: str = "cpu") -> Any:
+    try:
+        ckpt: dict = torch.load(ckpt_path, map_location=device)
+        return ckpt
+    except Exception as e:
+        print(e)
+        raise Exception("model weights not found")
+
+
+def load_model(model: YOLOX, ckpt: Any):
+    try:
+        model.load_state_dict(ckpt["model"])
+        return ckpt
+    except Exception as e:
+        print(e)
+        raise Exception("model weights not found")
+
+
 if __name__ == "__main__":
     # exp = Exp()
     # exp.test_conf = 0.50
@@ -124,8 +128,10 @@ if __name__ == "__main__":
     # try:
     #     print("s")
     # except Exception as e:
-    #     raise 
-    load_model()
+    #     raise
+    exp = Exp()
+    print(exp.name)
+    model: YOLOX = load_exp(exp)
+
+
 # model = torch.hub.load("Megvii-BaseDetection/YOLOX", "yolox_s")
-
-
