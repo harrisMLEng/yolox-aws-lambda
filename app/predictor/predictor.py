@@ -5,11 +5,11 @@ import numpy as np
 import torch
 from loguru import logger
 from torch import Tensor
+
+from app.exps.yolox_s import Exp
 from yolox.data.data_augment import ValTransform
 from yolox.models.yolox import YOLOX
 from yolox.utils.boxes import postprocess
-
-from app.exps.yolox_s import Exp
 
 
 class Predictor:

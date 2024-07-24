@@ -27,3 +27,8 @@ Ensure Docker is running and build the development container:
 ## License
 
 This project is licensed under the MIT License.
+
+clone yolox repo
+
+python setup.py develop
+python setup.py install
