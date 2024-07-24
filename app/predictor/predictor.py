@@ -1,4 +1,5 @@
 import time
+from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
 
 import numpy as np
@@ -8,6 +9,7 @@ from torch import Tensor
 
 from app.exps.yolox_s import Exp
 from yolox.data.data_augment import ValTransform
+from yolox.data.datasets import COCO_CLASSES
 from yolox.models.yolox import YOLOX
 from yolox.utils.boxes import postprocess
 
@@ -62,6 +64,7 @@ class Predictor:
 
     def inference(self, img: np.ndarray) -> List[Tensor]:
         tensor = self.__preprocess(img)
+        outputs = 
         with torch.no_grad():
             t0 = time.time()
             outputs = self.model(tensor)
@@ -82,6 +85,59 @@ class Predictor:
         return final
 
 
+class yolox:
+    _model: YOLOX
+
+    def __init__(self, exp: Exp):
+        self._model = exp.get_model().eval()
+
+    def inference(self, tensor: Tensor) -> List[Tensor]:
+        with torch.no_grad():
+            outputs = self._model(tensor)
+        return outputs
+
+    def post_process(self, outputs: List[Tensor], classes: List[str]):
+        final: List[Dict] = []
+        for p in outputs:
+            for *xyxy, conf, cls in p:
+                output = {}
+                output["class_id"] = classes[int(cls)]
+                output["confidence"] = float(conf)
+                output["bbox"] = list(map(float, xyxy))
+                final.append(output)
+        return final
+
+
+@dataclass(eq=False)
+class ImgProc:
+    test_size: Tuple[int, int]
+    preproc: ValTransform = ValTransform()
+    device: str = "cpu"
+    fp16: bool = False
+
+    def preprocess(self, img: np.ndarray) -> Tensor:
+        img, _ = self.preproc(img, None, self.test_size)
+        tensor: Tensor = torch.from_numpy(img).unsqueeze(0)
+        tensor = tensor.float()
+        if self.device == "gpu":
+            tensor = tensor.cuda()
+            if self.fp16:
+                tensor = tensor.half()  # to FP16
+        return tensor
+
+
+def post_process(outputs: List[Tensor], classes: Tuple = COCO_CLASSES):
+    final: List[Dict] = []
+    for p in outputs:
+        for *xyxy, conf, cls in p:
+            output = {}
+            output["class_id"] = classes[int(cls)]
+            output["confidence"] = float(conf)
+            output["bbox"] = list(map(float, xyxy))
+            final.append(output)
+    return final
+
+
 def load_exp(exp: Exp) -> YOLOX:
     return exp.get_model().eval()
 
@@ -95,10 +151,16 @@ def load_weights(ckpt_path: str, device: str = "cpu") -> Any:
         raise Exception("model weights not found")
 
 
+def inference(model: YOLOX, tensor: Tensor) -> List[Tensor]:
+    with torch.no_grad():
+        outputs = model(tensor)
+    return outputs
+
+
 def load_model(model: YOLOX, ckpt: Any):
     try:
         model.load_state_dict(ckpt["model"])
-        return ckpt
+        return model
     except Exception as e:
         print(e)
         raise Exception("model weights not found")
@@ -106,32 +168,18 @@ def load_model(model: YOLOX, ckpt: Any):
 
 if __name__ == "__main__":
     # exp = Exp()
-    # exp.test_conf = 0.50
-    # exp.nmsthre = 0.45
-    # p = Predictor(
-    #     exp=exp,
-    #     device="cpu",
-    #     fp16=False,
-    #     legacy=False,
-    # )
 
-    # p.load_model("detection/yolox/inference/weights/yolox_small.pth")
+    # model: YOLOX = load_exp(exp)
+    # weights = load_weights(ckpt_path="/workspaces/yolox-aws-lambda/app/weights/yolox_s.pth")
+    # yolox_model = load_model(model, weights)
+    yolox_model = torch.hub.load("Megvii-BaseDetection/YOLOX", "yolox_s")
 
-    # img = cv2.imread("detection/yolox/inference/data/tags/frame.jpg")
+    import cv2
 
-    # outputs = p.inference(img)
-    # beautify = p.post_process(outputs)
-    # print(beautify)
-    # draw_annotations(img, beautify)
-    # cv2.imwrite("2.png", img)
+    img = cv2.imread("/workspaces/yolox-aws-lambda/YOLOX/assets/dog.jpg")
+    img_proc = ImgProc(test_size=(416, 416))
 
-    # try:
-    #     print("s")
-    # except Exception as e:
-    #     raise
-    exp = Exp()
-    print(exp.name)
-    model: YOLOX = load_exp(exp)
+    tensor = img_proc.preprocess(img=img)
+    output = inference(model=yolox_model, tensor=tensor)
 
-
-# model = torch.hub.load("Megvii-BaseDetection/YOLOX", "yolox_s")
+    print(post_process(output))
