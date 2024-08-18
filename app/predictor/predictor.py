@@ -62,9 +62,9 @@ class Predictor:
         self.model.load_state_dict(ckpt["model"])
         logger.info("loaded checkpoint done.")
 
-    def inference(self, img: np.ndarray) -> List[Tensor]:
+    def inference(self, img: np.ndarray):
         tensor = self.__preprocess(img)
-        outputs = 
+        outputs = []
         with torch.no_grad():
             t0 = time.time()
             outputs = self.model(tensor)
@@ -167,13 +167,7 @@ def load_model(model: YOLOX, ckpt: Any):
 
 
 if __name__ == "__main__":
-    # exp = Exp()
-
-    # model: YOLOX = load_exp(exp)
-    # weights = load_weights(ckpt_path="/workspaces/yolox-aws-lambda/app/weights/yolox_s.pth")
-    # yolox_model = load_model(model, weights)
     yolox_model = torch.hub.load("Megvii-BaseDetection/YOLOX", "yolox_s")
-
     import cv2
 
     img = cv2.imread("/workspaces/yolox-aws-lambda/YOLOX/assets/dog.jpg")

@@ -1,4 +1,3 @@
-
 import cv2
 
 
@@ -41,4 +40,3 @@ def draw_annotations(image, annotations):
         # Put the text on the image
         cv2.putText(image, text, (int(x_min), int(y_min) - 10), font, font_scale, color, text_thickness)
     # This function modifies the image in-place, so there's no need to return the image
-
