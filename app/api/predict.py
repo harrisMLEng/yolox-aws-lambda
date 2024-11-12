@@ -1,6 +1,8 @@
 import io
 
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter
+from fastapi import File
+from fastapi import UploadFile
 from PIL import Image
 
 from app.models.prediction import Prediction
@@ -23,6 +25,12 @@ async def predict(file: UploadFile = File(...)):
     # Process results
     predictions = []
     for det in results.xyxy[0]:
-        predictions.append(Prediction(label=results.names[int(det[5])], confidence=det[4].item(), box=det[:4].tolist()))
+        predictions.append(
+            Prediction(
+                label=results.names[int(det[5])],
+                confidence=det[4].item(),
+                box=det[:4].tolist(),
+            )
+        )
 
     return predictions

@@ -1,10 +1,13 @@
-import time
 from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple
+import time
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Tuple
 
+from loguru import logger
 import numpy as np
 import torch
-from loguru import logger
 from torch import Tensor
 
 from app.exps.yolox_s import Exp
@@ -69,7 +72,13 @@ class Predictor:
             t0 = time.time()
             outputs = self.model(tensor)
 
-            outputs = postprocess(outputs, self.num_classes, self.confthre, self.nmsthre, class_agnostic=True)
+            outputs = postprocess(
+                outputs,
+                self.num_classes,
+                self.confthre,
+                self.nmsthre,
+                class_agnostic=True,
+            )
             logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs
 
@@ -167,7 +176,6 @@ def load_model(model: YOLOX, ckpt: Any):
 
 
 if __name__ == "__main__":
-    yolox_model = torch.hub.load("Megvii-BaseDetection/YOLOX", "yolox_s")
     import cv2
 
     img = cv2.imread("/workspaces/yolox-aws-lambda/YOLOX/assets/dog.jpg")
