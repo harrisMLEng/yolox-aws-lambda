@@ -129,14 +129,9 @@ class ImgProc:
     def preprocess(self, img: np.ndarray) -> Tensor:
         img, _ = self.preproc(img, None, self.test_size)
 
-        tensor: Tensor = torch.from_numpy(img).unsqueeze(0)
-
-        tensor = tensor.float()
-
-        if self.device == "gpu":
-            tensor = tensor.cuda()
-            if self.fp16:
-                tensor = tensor.half()  # to FP16
+        tensor: Tensor = torch.from_numpy(img).unsqueeze(0).float()
+        tensor = tensor.cuda() if self.device == "gpu" else tensor
+        tensor = tensor.half() if self.fp16 else tensor
         return tensor
 
 
