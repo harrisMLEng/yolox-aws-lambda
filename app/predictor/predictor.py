@@ -6,6 +6,7 @@ from typing import List
 from typing import Tuple
 
 from loguru import logger
+from memory_profiler import profile
 import numpy as np
 import torch
 from torch import Tensor
@@ -124,10 +125,14 @@ class ImgProc:
     device: str = "cpu"
     fp16: bool = False
 
+    @profile
     def preprocess(self, img: np.ndarray) -> Tensor:
         img, _ = self.preproc(img, None, self.test_size)
+
         tensor: Tensor = torch.from_numpy(img).unsqueeze(0)
+
         tensor = tensor.float()
+
         if self.device == "gpu":
             tensor = tensor.cuda()
             if self.fp16:
@@ -177,6 +182,14 @@ def load_model(model: YOLOX, ckpt: Any):
 
 if __name__ == "__main__":
     import cv2
+
+    exp = Exp()
+
+    model: YOLOX = load_exp(exp)
+    weights = load_weights(
+        ckpt_path="/workspaces/yolox-aws-lambda/app/weights/yolox_s.pth"
+    )
+    yolox_model = load_model(model, weights)
 
     img = cv2.imread("/workspaces/yolox-aws-lambda/YOLOX/assets/dog.jpg")
     img_proc = ImgProc(test_size=(416, 416))

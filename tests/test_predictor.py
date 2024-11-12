@@ -1,12 +1,21 @@
-from app.exps.yolox_s import Exp
-from app.predictor.predictor import yolox
+import cv2
+from numpy import ndarray
+import pytest
+from torch import Tensor
+
+from app.predictor.predictor import ImgProc
 
 
-def test_predictor():
-    pass
+@pytest.fixture
+def image1() -> ndarray:
+    img = cv2.imread("/workspaces/yolox-aws-lambda/YOLOX/assets/demo.png")
+    return img
 
 
-def test_yolox():
-    model = yolox(Exp())
+# FIXME pytest-lazy-fixture not compatible fix this
+def test_image_preprocessor(image1):
+    img_preproc = ImgProc(test_size=(416, 416))
 
-    assert False
+    tensor = img_preproc.preprocess(image1)
+
+    assert isinstance(tensor, Tensor)
