@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.endpoints import predict
+from app.api.predict import predict
 
 app = FastAPI()
 

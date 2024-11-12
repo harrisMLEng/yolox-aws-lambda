@@ -47,11 +47,16 @@
         },
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.tabSize": 2,
         "editor.rulers": [120],
         "[python]": {
-          "editor.tabSize": 4
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+          }
         },
         "extensions": {
           "verifySignature": false
@@ -59,14 +64,9 @@
       },
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance",
-        "pylint.vscode-pylint",
-        "esbenp.prettier-vscode",
         "editorconfig.editorconfig",
-        "visualstudioexptteam.vscodeintellicode",
         "eirikb.vscode-git-log",
         "davidanson.vscode-markdownlint",
-        "njpwerner.autodocstring",
         "lextudio.restructuredtext",
         "ms-vscode.test-adapter-converter",
         "ms-azuretools.vscode-docker",
