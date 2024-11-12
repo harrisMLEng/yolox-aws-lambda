@@ -29,7 +29,9 @@ onnx-simplifier = "0.3.10"
 onnxoptimizer = "0.3.13"
 onnxruntime = "1.13.1"
 loguru = "^0.7.2"
-protobuff = "4.25.4"
+protobuf = "4.25.4"
+memory-profiler = "^0.61.0"
+pytest = "^8.3.3"
 
 [build-system]
 requires = ["poetry-core", "torch"]
